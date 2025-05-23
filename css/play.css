@@ -1,6 +1,7 @@
 body{
     background-image: url("../media/backGround.webp");
     margin: 0!important;
+    position: relative;
 }
 /* navbar */
 nav{
@@ -83,6 +84,27 @@ th {
   border:1px solid black;
   width: 10%;
   height: 2.75vh;
+}
+#timer-to-start{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color:#00000071 ;
+    z-index: 1;
+}
+.timer{
+    position: absolute;
+    z-index: 2;
+    top: 40%;
+    left: 45%;
+    /* padding: 2%; */
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 10px solid #fbff00;
+    border-radius: 50%;
+    color: #fbff00;
+    font-size: xx-large;
 }
 
 
