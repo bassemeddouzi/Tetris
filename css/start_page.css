@@ -1,32 +1,30 @@
-body{
-    background-image: url("../media/backGround.webp");
-
+body {
+  background-image: url("../media/backGround.webp");
 }
-.start{
-position: relative;
-height: 90vh;
-}
-
-.start-button{
-text-decoration: none;
-position: absolute;
-top: 40%;
-left: 40%;
-border-radius: 5px ;
-padding: 5%;
-background-image: linear-gradient(to right, #ffd401, #3781ff);
+.start {
+  position: relative;
+  height: 90vh;
 }
 
-.start-button h1{
-background-image: linear-gradient(to right, #000000, #000000);
-color: transparent;
-background-clip: text;
+.start-button {
+  text-decoration: none;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-radius: 5px;
+  padding: 5%;
+  background-image: linear-gradient(to right, #ffd401, #3781ff);
 }
 
-.start-button:hover{
-    box-shadow: inset 0 0 100px #fff ;
+.start-button h1 {
+  background-image: linear-gradient(to right, #000000, #000000);
+  color: transparent;
+  background-clip: text;
 }
-.start-button:active{
-        box-shadow: inset 0 0 100px #000000 ;
 
+.start-button:hover {
+  box-shadow: inset 0 0 100px #fff;
+}
+.start-button:active {
+  box-shadow: inset 0 0 100px #000000;
 }

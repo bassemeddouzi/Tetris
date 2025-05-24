@@ -1,95 +1,145 @@
-function getRandomColor() {
-  const letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-var id = 0;
 var tetrominos = [
   {
     name: "carry",
-    cellPrincipaleIndex: 9,
     cells: [5, 6, 15, 16],
     prevPlace: [],
-    nextLeft: nextLeft,
-    nextRight: nextRight,
-    nextDown: nextDown,
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0, 2],
+    moveRight: moveRight,
+    cellsRightToCheck: [1, 3],
+    moveDown: moveDown,
+    cellsDownToCheck: [2, 3],
     color: "",
   },
-  { name: "line" },
-  { name: "z" },
-  { name: "T" },
-  { name: "point" },
+  {
+    name: "line",
+    cells: [5, 6, 7, 8],
+    prevPlace: [],
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0],
+    moveRight: moveRight,
+    cellsRightToCheck: [3],
+    moveDown: moveDown,
+    cellsDownToCheck: [0, 1, 2, 3],
+    rotate: rotate,
+    color: "",
+  },
+  {
+    name: "z",
+    cells: [5, 15, 16, 26],
+    prevPlace: [],
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0, 1],
+    moveRight: moveRight,
+    cellsRightToCheck: [2, 3],
+    moveDown: moveDown,
+    cellsDownToCheck: [1, 3],
+    rotate: rotate,
+    color: "",
+  },
+  {
+    name: "T",
+    cells: [5, 6, 7, 16],
+    prevPlace: [],
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0, 3],
+    moveRight: moveRight,
+    cellsRightToCheck: [2, 3],
+    moveDown: moveDown,
+    cellsDownToCheck: [0, 2, 3],
+    rotate: rotate,
+    color: "",
+  },
+  {
+    name: "point",
+    cells: [5],
+    prevPlace: [],
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0],
+    moveRight: moveRight,
+    cellsRightToCheck: [0],
+    moveDown: moveDown,
+    cellsDownToCheck: [0],
+    color: "",
+  },
+  {
+    name: "L",
+    cells: [5, 15, 25, 26],
+    prevPlace: [],
+    moveLeft: moveLeft,
+    cellsLeftToCheck: [0, 1, 2],
+    moveRight: moveRight,
+    cellsRightToCheck: [0, 1, 3],
+    moveDown: moveDown,
+    cellsDownToCheck: [2, 3],
+    rotate: rotate,
+    color: "",
+  },
 ];
-function checkMovoment(cells, nextMov) {
+function getNextRotationCells(tetromino) {
+  var x = tetromino.cells[1] % 10;
+  var y = Math.floor(tetromino.cells[1] / 10);
+  var nextCells = tetromino.cells.map(function (index) {
+    x_cell = index % 10;
+    y_cell = Math.floor(index / 10);
+    return (x_cell - x + y) * 10 - (y_cell - y) + x;
+  });
+  return nextCells;
+}
+function checkMovement(nextCells, currentCells) {
   const allCells = document.querySelectorAll("#table td");
-  switch (nextMov) {
-    case "left":
-      if (
-        (cells[0] % 10) - 1 < 0 ||
-        (cells[2] % 10) - 1 < 0 ||
-        allCells[cells[0] - 1].style.backgroundColor !== "" ||
-        allCells[cells[2] - 1].style.backgroundColor !== ""
-      )
-        return true;
-      break;
-    case "right":
-      if (
-        (cells[1] % 10) + 1 > 9 ||
-        (cells[3] % 10) + 1 > 9 ||
-        allCells[cells[1] + 1].style.backgroundColor !== "" ||
-        allCells[cells[3] + 1].style.backgroundColor !== ""
-      )
-        return true;
-      break;
-    case "down":
-      for (var i = 2; i < cells.length; i++) {
-        if (
-          cells[i] + 10 >= 160 ||
-          allCells[cells[i] + 10].style.backgroundColor !== ""
-        )
-          return true;
-      }
-      break;
+  for (let i = 0; i < nextCells.length; i++) {
+    if (nextCells[i] < 0 || nextCells[i] >= 160) return true;
+    // if (Math.floor(nextCells[i] / 10) !== Math.floor(currentCells[i] / 10))
+    //   return true;
+    if (
+      allCells[nextCells[i]].style.backgroundColor !== "" &&
+      !currentCells.includes(nextCells[i])
+    ) {
+      return true;
+    }
   }
   return false;
 }
-function nextLeft() {
-  if (checkMovoment(this.cells, "left")) {
-    return false;
-  }
+function moveLeft() {
+  const nextCells = this.cells.map(function (cell) {
+    return cell - 1;
+  });
+  if (checkMovement(nextCells, this.cells)) return false;
   this.prevPlace = [...this.cells];
-  for (var i = 0; i < this.cells.length; i++) {
-    this.cells[i]--;
-  }
+  this.cells = nextCells;
 }
-function nextRight() {
-  if (checkMovoment(this.cells, "right")) {
-    return false;
-  }
+function moveRight() {
+  const nextCells = this.cells.map(function (cell) {
+    return cell + 1;
+  });
+  if (checkMovement(nextCells, this.cells)) return false;
   this.prevPlace = [...this.cells];
-  for (var i = 0; i < this.cells.length; i++) {
-    this.cells[i]++;
-  }
+  this.cells = nextCells;
 }
-function nextDown() {
-  if (checkMovoment(this.cells, "down")) {
-    return false;
-  }
+function moveDown() {
+  const nextCells = this.cells.map(function (cell) {
+    return cell + 10;
+  });
+  if (checkMovement(nextCells, this.cells)) return false;
   this.prevPlace = [...this.cells];
-  for (var i = 0; i < this.cells.length; i++) {
-    this.cells[i] += 10;
-  }
+  this.cells = [...nextCells];
   return true;
 }
-function checkLimite(cells) {
+function rotate() {
+  const nextCells = getNextRotationCells(this);
+  if (!checkMovement(nextCells, this.cells)) {
+    this.prevPlace = [...this.cells];
+    this.cells = nextCells;
+  }
+}
+function reachLimite(cells) {
   for (var i = 0; i < cells.length; i++) {
     if (cells[i] + 10 > 160) return true;
   }
   return false;
 }
+
 function renderUiTetrominos(tetromino) {
   const allCells = document.querySelectorAll("#table td");
   tetromino.prevPlace.forEach(function (index) {
@@ -101,9 +151,12 @@ function renderUiTetrominos(tetromino) {
 }
 addEventListener("DOMContentLoaded", (event) => {
   function init() {
+    document.getElementById("hightScore").innerText =
+      localStorage.getItem("hightScore") || "0";
+
     return {
       score: 0,
-      highScore: localStorage.getItem("highScore") || 0,
+      hightScore: localStorage.getItem("hightScore") || 0,
       pause: false,
       start: function () {
         timerTostart();
@@ -111,15 +164,12 @@ addEventListener("DOMContentLoaded", (event) => {
           dropTetormino();
         }, 5000);
       },
+      reset: resetGame,
     };
   }
   function timerTostart() {
-    // var i=5
-    // var interval = setInterval(function(){
-    //     document.getElementById("timerValue").innerText=i
-    //     if(i===0)
-    //         clearInterval(interval)
-    // })
+    document.getElementById("timer-to-start").style.display = "block";
+    document.getElementById("timerValue").innerText = 5;
     setTimeout(function () {
       document.getElementById("timerValue").innerText = 4;
     }, 1000);
@@ -138,58 +188,90 @@ addEventListener("DOMContentLoaded", (event) => {
   }
   function dropTetormino() {
     var curentTet = creatTetormino();
-    game.currentTetromino = curentTet;
     game.score += checkGrid();
+    document.getElementById("score").innerText = game.score;
+    console.log();
     if (checkLosing(curentTet.cells)) {
-      if (game.highScore < game.score) game.highScore = game.score;
-      console.log(game);
+      if (game.hightScore < game.score) {
+        document.getElementById("hightScore").innerText = game.score;
+        localStorage.setItem("hightScore", game.score);
+        game.hightScore = game.score;
+      }
+      document.getElementById("losing").style.display = "block";
       return;
     }
-
     renderUiTetrominos(curentTet);
 
     document.getElementById("moveLeft").onclick = () => {
-      if (!game.isPaused) {
-        curentTet.nextLeft();
+      if (!game.pause) {
+        curentTet.moveLeft();
         renderUiTetrominos(curentTet);
       }
     };
-
     document.getElementById("moveRight").onclick = () => {
-      if (!game.isPaused) {
-        curentTet.nextRight();
+      if (!game.pause) {
+        curentTet.moveRight();
         renderUiTetrominos(curentTet);
       }
     };
-
+    document.getElementById("rotate").onclick = () => {
+      if (!game.pause) {
+        curentTet.rotate();
+        renderUiTetrominos(curentTet);
+      }
+    };
     game.dropInterval = setInterval(function () {
       if (!game.pause) {
-        var check = curentTet.nextDown();
+        var check = curentTet.moveDown();
         renderUiTetrominos(curentTet);
-        if (checkLimite(curentTet.cells) || !check) {
+        if (reachLimite(curentTet.cells) || !check) {
           clearInterval(game.dropInterval);
           setTimeout(() => dropTetormino(), 100);
         }
       }
-    }, 1000);
+    }, 200);
   }
-
   function creatTetormino() {
-    var teto = tetrominos[0];
+    var teto = tetrominos[Math.floor(Math.random() * 6)];
     return {
       ...teto,
-      id: id++,
       cells: [...teto.cells],
       prevPlace: [...teto.prevPlace],
-      nextLeft: teto.nextLeft,
-      nextRight: teto.nextRight,
-      nextDown: teto.nextDown,
+      moveLeft: teto.moveLeft,
+      moveRight: teto.moveRight,
+      moveDown: teto.moveDown,
       color: getRandomColor(),
     };
   }
+  function resetGame() {
+    const allCells = document.querySelectorAll("#table td");
+    allCells.forEach((cell) => (cell.style.backgroundColor = ""));
+    if (game.dropInterval) {
+      clearInterval(game.dropInterval);
+    }
+    this.score = 0;
+    this.pause = false;
+    timerTostart();
+    setTimeout(function () {
+      dropTetormino();
+    }, 5000);
+  }
   var game = init();
   game.start();
-  document.getElementById("pauseBtn").onclick = () => {
+  document.getElementById("pauseBtn").onclick = function () {
     game.pause = !game.pause;
+    document.getElementById("rest-section").style.display = "block";
+  };
+  document.getElementById("rest").onclick = function () {
+    game.reset();
+    document.getElementById("rest-section").style.display = "none";
+  };
+  document.getElementById("close").onclick = function () {
+    game.pause = false;
+    document.getElementById("rest-section").style.display = "none";
+  };
+  document.getElementById("rest-losing").onclick = function () {
+    game.reset();
+    document.getElementById("losing").style.display = "none";
   };
 });

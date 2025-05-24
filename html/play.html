@@ -1,111 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>tetris</title>
-    <link rel="stylesheet" href="../css/play.css">
-
-
-</head>
-<body>
+    <link rel="stylesheet" href="../css/play.css" />
+  </head>
+  <body>
     <nav>
-        <div class="score-item">
-            <h1>
-                Score
-            </h1>
-        </div>
-        <div class="stop-play-item" id="pauseBtn">
-            <a>
-                <i class="fa fa-solid fa-pause" style="font-size:24px"></i>
-            </a>
-        </div>
-        <div class="score-item">
-            <h1>
-                hightScore
-            </h1>
-        </div>
+      <div class="score-item">
+        <h1 id="score">Score</h1>
+      </div>
+      <div class="stop-play-item" id="pauseBtn">
+        <a>
+          <i class="fa fa-solid fa-pause" style="font-size: 24px"></i>
+        </a>
+      </div>
+      <div class="score-item">
+        <h1 id="hightScore">hightScore</h1>
+      </div>
     </nav>
     <section class="gaming-section">
-        <div class="grid">
-            <table id="table">
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-            </table>
+      <div class="grid">
+        <table id="table">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div class="game-menu">
+        <div class="move">
+          <button id="moveLeft" class="commande-button moveLeft">
+            <i class="fa fa-solid fa-arrow-left"></i>
+          </button>
+          <button id="moveRight" class="commande-button moveRight">
+            <i class="fa fa-solid fa-arrow-right"></i>
+          </button>
         </div>
-        <div class="game-menu">
-            <div class="move">
-                <button id="moveLeft" class="commande-button moveLeft">
-                    <i class="fa fa-solid fa-arrow-left"></i>
-                </button> 
-                <button id="moveRight" class="commande-button moveRight">
-                    <i class="fa fa-solid fa-arrow-right"></i>
-                </button>
-            </div>
-            <div class="rotate">
-                <button class="commande-button rotateLeft">
-                    <i class="fa fa-solid fa-rotate-left"></i>
-                </button>
-                <button class="commande-button rotateRight">
-                    <i class="fa fa-solid fa-rotate-right"></i>
-                </button>
-            </div>
+        <div class="rotate">
+          <button id="rotate" class="commande-button rotateLeft">
+            <i class="fa fa-solid fa-rotate-left"></i>
+          </button>
         </div>
-
+      </div>
     </section>
     <section id="timer-to-start">
-        <div class="timer">
-            <h1 id="timerValue">5</h1>
-        </div>
+      <div class="timer">
+        <h1 id="timerValue">5</h1>
+      </div>
     </section>
-    <script src="../js/checkDeletFullLine.js"></script>
+    <section id="rest-section">
+      <div class="rest-container">
+        <button id="rest" class="rest">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+        <button id="close" class="close">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+    <section id="losing">
+      <div class="card">
+        <h1>You Lost, Try Again</h1>
+        <div class="losing-container">
+          <button id="rest-losing" class="rest">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+          <a href="../index.html" class="close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+    <script src="../js/function.js"></script>
     <script src="../js/game.js"></script>
-</body>
+  </body>
 </html>
